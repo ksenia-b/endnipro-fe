@@ -4,7 +4,6 @@ import {Link, useNavigate} from "react-router-dom"
 function ProjectForm({method, project}) {
   const navigate = useNavigate()
 
-  console.log("project ", project)
   const [projectData, setProjectData] = useState({
     id: project?.id || "",
     title: project?.title || "",
@@ -15,18 +14,16 @@ function ProjectForm({method, project}) {
 
   const handleInputChange = (e) => {
     const {name, value} = e.target
-    console.log(name, value)
+  
     setProjectData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }))
-    console.log(projectData)
   }
 
   const handleSubmit = (e) => {
-    console.log("projectData = ", projectData)
     e.preventDefault()
-    const postURL = "http://192.168.1.106:3000/projects"
+    const postURL = process.env.REACT_APP_BASE_URL+ ":"+process.env.REACT_APP_BASE_PORT+"/projects"
     fetch(postURL, {
       method: method,
       headers: {
@@ -40,6 +37,7 @@ function ProjectForm({method, project}) {
         shortDescription: projectData.shortDescription,
         description: projectData.description,
         mainImage: projectData.mainImage,
+        dateAdded: projectData.dateAdded
       }),
     }).then(() => {
       alert("You have been added to the system!")
@@ -131,6 +129,27 @@ function ProjectForm({method, project}) {
             defaultValue={project ? project.mainImage : ""}
             onChange={handleInputChange}
             placeholder={"Enter image name"}
+          />
+        </p>
+
+        <p>
+          <label
+            className={"block text-gray-700 text-sm font-bold mb-2"}
+            htmlFor="dateAdded"
+          >
+            Date added
+          </label>
+          <input
+            className={
+              "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            }
+            id="dateAdded"
+            type="text"
+            name="dateAdded"
+            required
+            defaultValue={project ? project.dateAdded : ""}
+            onChange={handleInputChange}
+            placeholder={"Enter date"}
           />
         </p>
         <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">

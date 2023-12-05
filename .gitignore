@@ -12,6 +12,13 @@ dist/*
 /tmp
 /out-tsc
 
+# env files
+*.env
+*.env.example
+*.env.local
+*.env.staging
+
+
 # dependencies
 /node_modules
 

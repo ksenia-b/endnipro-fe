@@ -6,7 +6,7 @@ function ProjectDetail(props) {
 
   const deleteProjectHandler = (e) => {
     e.preventDefault()
-    const postURL = "http://192.168.1.106:3000/projects/" + state.project.id
+    const postURL = process.env.REACT_APP_BASE_URL+ ":"+process.env.REACT_APP_BASE_PORT+ "/projects/" + state.project.id
     fetch(postURL, {
       method: "DELETE",
       headers: {
@@ -21,7 +21,6 @@ function ProjectDetail(props) {
   return (
     <>
       <div class="max-w-s rounded overflow-hidden shadow-lg">
-        {console.log("state in pDetails = ", state)}
         <img
           class="w-full"
           //   src="/img/card-top.jpg"
