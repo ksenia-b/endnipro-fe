@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "React.js, Tailwind CSS",
+    "shortDescription": "Cupidatat non proident, sunt in culpa qui officia deserunt.",
+    "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "mainImage": "1.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Nest.js, Express, MongoDB",
+    "shortDescription": "Quis nostrud exercitation ullamco laboris nisi ut aliquip",
+    "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "mainImage": "2.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Duis aute irure dolor ",
+    "shortDescription": "Learn everything there is to know about the ubiquitous lorem",
+    "description": "From its medieval origins to the digital era, learn everything there is to know about the ubiquitous lorem ipsum",
+    "mainImage": "3.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Proident, sunt in culpa qu",
+    "shortDescription": "There is to know about the ubiquitous lorem ipsum",
+    "description": "Fasde gital era, learn everything there is to know about the ubiquitous lorem ipsum",
+    "mainImage": "4.jpg"
+  }
+]
