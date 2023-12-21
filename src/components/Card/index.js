@@ -1,16 +1,26 @@
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
-const Card = ({projects}) => {
-  if (!projects && !projects.length) {
+const Card = ({projects, loading, error}) => {
+  if(loading){
+    return <h2>Loading...</h2>
+  }
+  if(error){
+    return <h2>Oops... Error happend!</h2>
+  }
+  
+  console.log("projects in cards = ", projects);
+
+  if (!projects && !projects?.length) {
     return <div>"no projects yet"</div>
   }
 
   return (
     <>
+
       {projects.map((project) => (
         <div
           key={project.id}
-          class="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6"
+          className="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6"
         >
           <div>
           <img
@@ -40,7 +50,9 @@ const Card = ({projects}) => {
 
      
         </div>
+       
       ))}
+
     </>
   )
 }

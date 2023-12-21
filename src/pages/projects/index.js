@@ -1,35 +1,22 @@
-import { useEffect, useState } from "react"
-import Card from "../../components/Card"
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react";
+
+import Card from "../../components/Card";
+import { Link } from "react-router-dom";
+import { useData } from "../../hooks/useData";
 
 function Projects(props) {
-  const [projects, setProjects] = useState([])
-  console.log("get url = ", process.env.REACT_APP_BASE_URL+ ":"+process.env.REACT_APP_BASE_PORT+"/projects?limit=10&skip=0");
+  // const itemsPerPage = 2;
+  const [page, setPage] = useState(1);
+
+  const {  isError, isLoading, items, hasMore, fetchMoreData} = useData(page);
+
+  useEffect(() => {fetchMoreData(page)}, [page])
+
+  const onLoadMoreClick = () => {
+    setPage(page + 1)
+};
   
-  const getData = () => {
-    fetch(process.env.REACT_APP_BASE_URL+ ":"+process.env.REACT_APP_BASE_PORT+"/projects?limit=10&skip=0", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then(function (response) {
-        console.log("response = ", response)
-        return response.json()
-      })
-      .then(function (myJson) {
-        setProjects(myJson)
-      })
-  }
-  useEffect(() => {
-    getData()
-  }, []);
-
-
-  console.log('projects: ', projects)
-
-  return (
-    <>
+  return ( <>
       <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
         <Link to={"add"}>
           <svg
@@ -38,10 +25,10 @@ function Projects(props) {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-6 h-6"
+            className="w-6 h-6"
           >
             <path
-              stroke-linecap="round"
+              strokeLinecap="round"
               stroke-linejoin="round"
               d="M12 4.5v15m7.5-7.5h-15"
             />
@@ -49,9 +36,12 @@ function Projects(props) {
           Add project
         </Link>
       </button>
-      <Card projects={projects}></Card>
+      <Card projects={items} loading={isLoading} error={isError}></Card>
+      <button disabled={!hasMore} onClick={onLoadMoreClick}>Load more</button>
+    
+
     </>
   )
 }
 
-export default Projects
+export default Projects;

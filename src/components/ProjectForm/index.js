@@ -3,13 +3,14 @@ import {Link, useNavigate} from "react-router-dom"
 
 function ProjectForm({method, project}) {
   const navigate = useNavigate()
-
+const timeNow =  Math.floor(Date.now() / 1000);
   const [projectData, setProjectData] = useState({
     id: project?.id || "",
     title: project?.title || "",
     shortDescription: project?.shortDescription || "",
     description: project?.shortDescription || "",
-    mainImage: project?.mainImage || "11.jpg",
+    mainImage: project?.mainImage || "404photo.jpg",
+    dateAdded: project?.dateAdded ||  timeNow
   })
 
   const handleInputChange = (e) => {
@@ -18,12 +19,14 @@ function ProjectForm({method, project}) {
     setProjectData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
+      dateAdded: timeNow
     }))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const postURL = process.env.REACT_APP_BASE_URL+ ":"+process.env.REACT_APP_BASE_PORT+"/projects"
+    const postURL = "http://"+ process.env.REACT_APP_BASE_URL+ ":"+process.env.REACT_APP_BASE_PORT+"/projects"
+    console.log("postURL = ", postURL)
     fetch(postURL, {
       method: method,
       headers: {
@@ -51,7 +54,7 @@ function ProjectForm({method, project}) {
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 "
         onSubmit={handleSubmit}
       >
-        <p className="">
+        <p >
           <label
             className={"block text-gray-700 text-sm font-bold mb-2"}
             htmlFor="title"
@@ -143,11 +146,12 @@ function ProjectForm({method, project}) {
             className={
               "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             }
+            disabled="disabled"
             id="dateAdded"
             type="text"
             name="dateAdded"
             required
-            defaultValue={project ? project.dateAdded : ""}
+            defaultValue={new Date(Date.now()).toLocaleDateString("en-US")}
             onChange={handleInputChange}
             placeholder={"Enter date"}
           />
@@ -159,10 +163,10 @@ function ProjectForm({method, project}) {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-6 h-6"
+            className="w-6 h-6"
           >
             <path
-              stroke-linecap="round"
+              strokeLinecap="round"
               stroke-linejoin="round"
               d="M4.5 12.75l6 6 9-13.5"
             />
@@ -177,10 +181,10 @@ function ProjectForm({method, project}) {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="w-6 h-6"
+              className="w-6 h-6"
             >
               <path
-                stroke-linecap="round"
+                strokeLinecap="round"
                 stroke-linejoin="round"
                 d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
               />
